@@ -1,0 +1,25 @@
+const API = require("../utils/apiBuilder");
+const UserController = require("../controllers/UserController");
+
+const router = API.configRoute("/user")
+    .addPath("/signup")
+    .asPOST(UserController.signup)
+    .build()
+
+    .addPath("/login")
+    .asPOST(UserController.login)
+    .build()
+
+    .addPath("/logout")
+    .asPOST(UserController.logout)
+    .useUserAuth()
+    .build()
+
+    .addPath("/me")
+    .asGET(UserController.me)
+    .useUserAuth()
+    .build()
+
+    .getRouter();
+
+module.exports = router;
